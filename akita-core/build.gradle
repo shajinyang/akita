@@ -3,8 +3,6 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 26
 
-
-
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 26
@@ -13,6 +11,10 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+    }
+
+    dataBinding{
+        enabled true
     }
 
     buildTypes {
@@ -25,12 +27,28 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$android_sdk_version"
+    implementation "com.android.support:support-v4:$android_sdk_version"
     implementation "com.android.support:design:$android_sdk_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "com.android.support:support-vector-drawable:$android_sdk_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "com.android.support.test:runner:$android_test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$android_test_espresso"
+
+    //Android Architecture components组件
+    api "android.arch.lifecycle:runtime:$lifecycle"
+    api "android.arch.lifecycle:extensions:$lifecycle"
+    annotationProcessor  "android.arch.lifecycle:compiler:$lifecycle"
+    api "android.arch.persistence.room:runtime:$room"
+    annotationProcessor  "android.arch.persistence.room:compiler:$room"
+
+    // fragment库
+    compile "me.yokeyword:fragmentation:$fragment_version"
+    compile "me.yokeyword:fragmentation-swipeback:$fragment_version"
+
+    //日志打印库
+
+
 }
