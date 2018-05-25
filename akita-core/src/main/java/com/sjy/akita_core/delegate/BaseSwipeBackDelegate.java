@@ -1,33 +1,32 @@
 package com.sjy.akita_core.delegate;
 
-import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.yokeyword.fragmentation.SwipeBackLayout;
-import me.yokeyword.fragmentation_swipeback.core.ISwipeBackFragment;
-import me.yokeyword.fragmentation_swipeback.core.SwipeBackFragmentDelegate;
+import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
- * Created by sjy on 2018/5/24.
+ * Created by sjy on 2018/5/25.
  */
 
-public abstract class BaseSwipeBackDelegate<T extends ViewDataBinding> extends Fragment implements ISwipeBackFragment {
-
-    public T v;
+public abstract class BaseSwipeBackDelegate<T extends ViewDataBinding> extends SwipeBackFragment {
+    protected T v;
     protected FragmentActivity _mactivity=null;
-    public abstract Object setLayout();
-    private final SwipeBackFragmentDelegate DELEGATE=new SwipeBackFragmentDelegate(this);
+    protected abstract Object setLayout();
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        _mactivity=getActivity();
+    }
 
     @Nullable
     @Override
@@ -39,44 +38,6 @@ public abstract class BaseSwipeBackDelegate<T extends ViewDataBinding> extends F
         }else {
             throw  new ClassCastException("setLayout() must return Integer or View");
         }
-        return v.getRoot();
-
-    }
-
-
-
-
-
-
-    //接口实现
-
-    @Override
-    public View attachToSwipeBack(View view) {
-        return DELEGATE.attachToSwipeBack(view);
-    }
-
-    @Override
-    public SwipeBackLayout getSwipeBackLayout() {
-        return DELEGATE.getSwipeBackLayout();
-    }
-
-    @Override
-    public void setSwipeBackEnable(boolean enable) {
-        DELEGATE.setSwipeBackEnable(enable);
-    }
-
-    @Override
-    public void setEdgeLevel(SwipeBackLayout.EdgeLevel edgeLevel) {
-        DELEGATE.setEdgeLevel(edgeLevel);
-    }
-
-    @Override
-    public void setEdgeLevel(int widthPixel) {
-        DELEGATE.setEdgeLevel(widthPixel);
-    }
-
-    @Override
-    public void setParallaxOffset(float offset) {
-        DELEGATE.setParallaxOffset(offset);
+        return attachToSwipeBack(v.getRoot());
     }
 }
