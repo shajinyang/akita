@@ -1,1 +1,1 @@
-include ':app', ':akita-core', ':akita-ui', ':akita-compiler', ':akita-annotations'
+include ':app', ':akita-core', ':akita-ui', ':akita-compiler', ':akita-annotations', ':akita-common'

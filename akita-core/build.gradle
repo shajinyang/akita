@@ -40,15 +40,17 @@ dependencies {
     //Android Architecture components组件
     api "android.arch.lifecycle:runtime:$lifecycle"
     api "android.arch.lifecycle:extensions:$lifecycle"
-    annotationProcessor  "android.arch.lifecycle:compiler:$lifecycle"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle"
     api "android.arch.persistence.room:runtime:$room"
-    annotationProcessor  "android.arch.persistence.room:compiler:$room"
+    annotationProcessor "android.arch.persistence.room:compiler:$room"
 
     // fragment库
     compile "me.yokeyword:fragmentation:$fragment_version"
     compile "me.yokeyword:fragmentation-swipeback:$fragment_version"
 
+    //公共库
+    api project(':akita-common')
+
     //日志打印库
-
-
+    compile "com.orhanobut:logger:$logger_version"
 }

@@ -18,14 +18,14 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 public abstract class BaseSwipeBackDelegate<T extends ViewDataBinding> extends SwipeBackFragment {
     protected T v;
-    protected FragmentActivity _mactivity=null;
+    protected FragmentActivity _mActivity =null;
     protected abstract Object setLayout();
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        _mactivity=getActivity();
+        _mActivity =getActivity();
     }
 
     @Nullable

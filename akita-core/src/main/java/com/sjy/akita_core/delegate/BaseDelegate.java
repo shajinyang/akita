@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.MutableShort;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public abstract class BaseDelegate<T extends ViewDataBinding> extends Fragment implements ISupportFragment {
 
     protected T v;
-    protected FragmentActivity _mactivity=null;
+    protected FragmentActivity _mActivity =null;
     protected abstract Object setLayout();
 
     private final SupportFragmentDelegate mDelegate=new SupportFragmentDelegate(this);
@@ -37,7 +36,7 @@ public abstract class BaseDelegate<T extends ViewDataBinding> extends Fragment i
     public void onAttach(Context context) {
         super.onAttach(context);
         mDelegate.onAttach((Activity) context);
-        _mactivity=mDelegate.getActivity();
+        _mActivity =mDelegate.getActivity();
     }
 
     @Override
@@ -314,6 +313,7 @@ public abstract class BaseDelegate<T extends ViewDataBinding> extends Fragment i
         mDelegate.showSoftInput(view);
     }
 
+
     /**
      * 加载根Fragment, 即Activity内的第一个Fragment 或 Fragment内的第一个子Fragment
      *
@@ -323,6 +323,7 @@ public abstract class BaseDelegate<T extends ViewDataBinding> extends Fragment i
     public void loadRootFragment(int containerId, ISupportFragment toFragment) {
         mDelegate.loadRootFragment(containerId, toFragment);
     }
+
 
     public void loadRootFragment(int containerId, ISupportFragment toFragment, boolean addToBackStack, boolean allowAnim) {
         mDelegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnim);

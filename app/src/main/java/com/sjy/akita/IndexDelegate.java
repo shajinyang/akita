@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
 import com.sjy.akita.databinding.DelegateIndexBinding;
 import com.sjy.akita_core.delegate.AkitaDelegate;
+import com.sjy.akita_core.log.AkitaLog;
+
+import java.util.ArrayList;
 
 import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
 import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator;
@@ -30,9 +34,17 @@ public class IndexDelegate extends AkitaDelegate<DelegateIndexBinding> {
         v.tvBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               getSupportDelegate().start(DetailDelegate.create());
+                getSupportDelegate().start(DetailDelegate.create());
             }
         });
+        ArrayList<String> list=new ArrayList<>();
+        list.add("站桑电视上");
+        list.add("的上升空间");
+        list.add("滑动时抠脚大汉");
+        list.add("符合贷款");
+        list.add("近代史可");
+        list.add("会打瞌睡");
+        AkitaLog.d("hehe",list);
     }
 
     public static IndexDelegate create(){

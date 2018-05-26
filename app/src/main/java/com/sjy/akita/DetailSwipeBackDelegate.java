@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.sjy.akita.databinding.DelegateDetailBinding;
+import com.sjy.akita_common.utils.UiUtils;
 import com.sjy.akita_core.delegate.AkitaDelegate;
 import com.sjy.akita_core.delegate.AkitaSwipeBackDelegate;
 

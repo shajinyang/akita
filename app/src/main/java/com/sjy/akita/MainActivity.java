@@ -1,9 +1,7 @@
 package com.sjy.akita;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
+import com.sjy.akita_common.utils.UiUtils;
 import com.sjy.akita_core.activity.AkitaActivity;
 import com.sjy.akita_core.delegate.AkitaDelegate;
 
@@ -15,8 +13,8 @@ public class MainActivity extends AkitaActivity {
 
     @Override
     public AkitaDelegate setRootDelegate() {
+        UiUtils.transparentBar(this);
         return MainDelegate.create();
-
     }
 
 }

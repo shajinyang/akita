@@ -1,7 +1,6 @@
 package com.sjy.akita_core.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
 
 import com.sjy.akita_core.R;
@@ -23,12 +22,12 @@ public abstract class ProxySwipeBackActivity extends SwipeBackActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initContainer(savedInstanceState);
+        initContainer();
         getSwipeBackLayout().setEdgeOrientation(SwipeBackLayout.EDGE_ALL);
     }
 
 
-    private void initContainer(@Nullable Bundle savedInstanceState){
+    private void initContainer(){
         final ContentFrameLayout contentFrameLayout=new ContentFrameLayout(this);
         contentFrameLayout.setId(R.id.akita_delegate_id);
         setContentView(contentFrameLayout);

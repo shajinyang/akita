@@ -35,7 +35,7 @@ public class MainDelegate extends AkitaDelegate<DelegateMainBinding> {
         v.tvBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(_mactivity,IndexActivity.class));
+                startActivity(new Intent(_mActivity,IndexActivity.class));
             }
         });
     }
