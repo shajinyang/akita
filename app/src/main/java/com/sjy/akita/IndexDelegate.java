@@ -1,18 +1,17 @@
 package com.sjy.akita;
 
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.orhanobut.logger.Logger;
 import com.sjy.akita.beans.ResBean;
 import com.sjy.akita.databinding.DelegateIndexBinding;
 import com.sjy.akita_core.delegate.AkitaDelegate;
 import com.sjy.akita_core.log.AkitaLog;
 import com.sjy.akita_core.net.RestClient;
+import com.sjy.akita_core.net.callback.IEnd;
 import com.sjy.akita_core.net.callback.IError;
-import com.sjy.akita_core.net.callback.IRequest;
+import com.sjy.akita_core.net.callback.IStart;
 import com.sjy.akita_core.net.callback.ISuccess;
 
 import java.util.ArrayList;
@@ -55,14 +54,9 @@ public class IndexDelegate extends AkitaDelegate<DelegateIndexBinding> {
                 .url("Friends/typeList")
                 .params("a","b")
                 .convert(ResBean.class)
-                .requset(new IRequest() {
+                .start(new IStart() {
                     @Override
                     public void onStart() {
-
-                    }
-
-                    @Override
-                    public void onEnd() {
 
                     }
                 })
@@ -75,6 +69,12 @@ public class IndexDelegate extends AkitaDelegate<DelegateIndexBinding> {
                 .error(new IError() {
                     @Override
                     public void onError(String msg) {
+
+                    }
+                })
+                .end(new IEnd() {
+                    @Override
+                    public void onEnd() {
 
                     }
                 })

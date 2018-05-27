@@ -32,4 +32,5 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$android_test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$android_test_espresso"
     implementation project(':akita-core')
+    implementation project(':akita-ui')
 }

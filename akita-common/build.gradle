@@ -34,4 +34,7 @@ dependencies {
     //内存泄露监测
     debugApi "com.squareup.leakcanary:leakcanary-android:$leakcanary"
     releaseApi "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary"
+
+    //fastjson
+    compile "com.alibaba:fastjson:$fastjson_version"
 }

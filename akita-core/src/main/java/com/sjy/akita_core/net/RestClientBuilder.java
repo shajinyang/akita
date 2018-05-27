@@ -1,7 +1,8 @@
 package com.sjy.akita_core.net;
 
+import com.sjy.akita_core.net.callback.IEnd;
 import com.sjy.akita_core.net.callback.IError;
-import com.sjy.akita_core.net.callback.IRequest;
+import com.sjy.akita_core.net.callback.IStart;
 import com.sjy.akita_core.net.callback.ISuccess;
 
 import java.io.File;
@@ -18,7 +19,8 @@ public class RestClientBuilder {
     private  File file=null;
     private  ISuccess ISUCCESS=null;
     private  IError IERROR=null;
-    private  IRequest IREQUEST=null;
+    private IStart ISTART=null;
+    private IEnd IEND=null;
     private  Class<?> CONVERT_BEAN=null;
 
 
@@ -52,8 +54,12 @@ public class RestClientBuilder {
         return this;
     }
 
-    public RestClientBuilder requset(IRequest irequest){
-        IREQUEST=irequest;
+    public RestClientBuilder start(IStart iStart){
+        ISTART=iStart;
+        return this;
+    }
+    public RestClientBuilder end(IEnd iEnd){
+        IEND=iEnd;
         return this;
     }
     public RestClientBuilder convert(Class<?> CONVERT_BEAN){
@@ -62,7 +68,7 @@ public class RestClientBuilder {
     }
 
     public RestClient build(){
-        return new RestClient(PARAMS,URL,file,ISUCCESS,IERROR,IREQUEST,CONVERT_BEAN);
+        return new RestClient(PARAMS,URL,file,ISUCCESS,IERROR,ISTART,IEND,CONVERT_BEAN);
     }
 
 }
