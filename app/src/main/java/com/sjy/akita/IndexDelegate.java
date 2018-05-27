@@ -6,16 +6,17 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.orhanobut.logger.Logger;
+import com.sjy.akita.beans.ResBean;
 import com.sjy.akita.databinding.DelegateIndexBinding;
 import com.sjy.akita_core.delegate.AkitaDelegate;
 import com.sjy.akita_core.log.AkitaLog;
+import com.sjy.akita_core.net.RestClient;
+import com.sjy.akita_core.net.callback.IError;
+import com.sjy.akita_core.net.callback.IRequest;
+import com.sjy.akita_core.net.callback.ISuccess;
 
 import java.util.ArrayList;
 
-import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
-import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator;
-import me.yokeyword.fragmentation.anim.FragmentAnimator;
-import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
  * Created by sjy on 2018/5/25.
@@ -45,6 +46,40 @@ public class IndexDelegate extends AkitaDelegate<DelegateIndexBinding> {
         list.add("近代史可");
         list.add("会打瞌睡");
         AkitaLog.d("hehe",list);
+        testNet();
+
+    }
+
+    private void testNet(){
+        RestClient.builder()
+                .url("Friends/typeList")
+                .params("a","b")
+                .convert(ResBean.class)
+                .requset(new IRequest() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onEnd() {
+
+                    }
+                })
+                .success(new ISuccess<ResBean>() {
+                    @Override
+                    public void onSuccess(ResBean resBean) {
+
+                    }
+                })
+                .error(new IError() {
+                    @Override
+                    public void onError(String msg) {
+
+                    }
+                })
+                .build()
+                .get();
     }
 
     public static IndexDelegate create(){

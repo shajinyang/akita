@@ -53,4 +53,26 @@ dependencies {
 
     //日志打印库
     compile "com.orhanobut:logger:$logger_version"
+
+    //net
+    api "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    api "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
+    //rxjava
+    api "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+    api "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
+
+    //glide
+    api ("com.github.bumptech.glide:glide:$glideVersion"){
+        exclude group: "com.android.support"
+    }
+    annotationProcessor ("com.github.bumptech.glide:compiler:$glideVersion"){
+        exclude group: "com.android.support"
+    }
+
+    //fastjson
+    compile "com.alibaba:fastjson:$fastjson_version"
 }

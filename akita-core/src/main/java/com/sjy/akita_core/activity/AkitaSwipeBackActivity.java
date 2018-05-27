@@ -7,4 +7,6 @@ package com.sjy.akita_core.activity;
  */
 
 public abstract class AkitaSwipeBackActivity extends ProxySwipeBackActivity {
+
+
 }

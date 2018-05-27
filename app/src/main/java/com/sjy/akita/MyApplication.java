@@ -14,7 +14,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Akita.init(this);
+        Akita.init(this)
+            .withApiHost("http://datam.zx53.cn/Api2/")
+            .config();
 
     }
 }
