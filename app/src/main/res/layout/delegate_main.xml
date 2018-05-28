@@ -34,5 +34,19 @@
         android:textSize="15dp"
         android:padding="8dp"
         android:text="城市选择"/>
+    <Button
+        android:id="@+id/tv_btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:padding="8dp"
+        android:text="列表"/>
+    <Button
+        android:id="@+id/tv_btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:padding="8dp"
+        android:text="复合列表"/>
 </LinearLayout>
 </layout>

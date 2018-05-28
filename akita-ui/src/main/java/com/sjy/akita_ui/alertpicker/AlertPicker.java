@@ -13,12 +13,12 @@ import com.sjy.akita_ui.alertpicker.util.ParseJson;
 import java.util.ArrayList;
 
 /**
- * 弹框选择器
+ * 城市弹框选择器
  * Created by sjy on 2018/5/27.
  */
 
 public class AlertPicker {
-    private PickerType TYPE;
+    private PickerType TYPE=PickerType.PROVINCE_CITY_DISTRICT;
     private OptionsPickerView pvOptions;
     private IOnSelect iOnSelect;
     private Context context;
@@ -60,11 +60,19 @@ public class AlertPicker {
 
 
     public void show(){
-        ParseJson parseJson= ParseJson.create(context);
-        options1Items=parseJson.getProvince();
-        options2Items=parseJson.getCity();
-        options3Items=parseJson.getDistrict();
-        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
-        pvOptions.show();
+        if(TYPE==PickerType.PROVINCE_CITY_DISTRICT){
+            ParseJson parseJson= ParseJson.create(context);
+            options1Items=parseJson.getProvince();
+            options2Items=parseJson.getCity();
+            options3Items=parseJson.getDistrict();
+            pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+            pvOptions.show();
+        }else if(TYPE==PickerType.PROVINCE_CITY){
+            ParseJson parseJson= ParseJson.create(context);
+            options1Items=parseJson.getProvince();
+            options2Items=parseJson.getCity();
+            pvOptions.setPicker(options1Items, options2Items);//三级选择器
+            pvOptions.show();
+        }
     }
 }

@@ -19,6 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".IndexActivity"  android:theme="@style/AppTheme.SwipeBack"/>
+
+        <receiver android:name=".alarm.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="hehe"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

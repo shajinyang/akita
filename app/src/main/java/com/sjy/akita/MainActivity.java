@@ -1,6 +1,7 @@
 package com.sjy.akita;
 
 
+import com.sjy.akita.fragments.MainDelegate;
 import com.sjy.akita_common.utils.UiUtils;
 import com.sjy.akita_core.activity.AkitaActivity;
 import com.sjy.akita_core.delegate.AkitaDelegate;

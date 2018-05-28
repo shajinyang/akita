@@ -1,9 +1,10 @@
-package com.sjy.akita;
+package com.sjy.akita.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.sjy.akita.R;
 import com.sjy.akita.beans.ResBean;
 import com.sjy.akita.databinding.DelegateIndexBinding;
 import com.sjy.akita_core.delegate.AkitaDelegate;
