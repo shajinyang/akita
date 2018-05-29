@@ -74,6 +74,13 @@ public class MainDelegate extends AkitaDelegate<DelegateMainBinding> {
             }
         });
 
+        v.tvBtn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start(new PopDelegate());
+            }
+        });
+
         /*Intent intent = new Intent(_mActivity,MainActivity.class);
         intent.setAction("hehe");
 

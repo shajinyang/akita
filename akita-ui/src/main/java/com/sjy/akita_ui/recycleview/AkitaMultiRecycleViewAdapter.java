@@ -130,7 +130,7 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
         loadType = LOAD_MORE_VIEW;
         if (data != null) {
             if (getItemCount() == data.size()) {
-                notifyItemChanged(data.size() - 1);
+                notifyItemInserted(data.size() - 1);
             } else {
                 notifyItemChanged(data.size());
             }

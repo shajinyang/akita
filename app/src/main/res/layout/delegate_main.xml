@@ -48,5 +48,12 @@
         android:textSize="15dp"
         android:padding="8dp"
         android:text="复合列表"/>
+    <Button
+        android:id="@+id/tv_btn6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:padding="8dp"
+        android:text="弹框"/>
 </LinearLayout>
 </layout>
