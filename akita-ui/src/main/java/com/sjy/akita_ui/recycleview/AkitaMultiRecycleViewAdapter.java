@@ -169,14 +169,6 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         autoLoadMore(position);
         if (holder.getItemViewType() == LOAD_MORE_VIEW) {
-            holder.setOnClickListener(R.id.akita_ui_recycleview_footer, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iOnFootClickListener != null) {
-                        iOnFootClickListener.onClickFoot();
-                    }
-                }
-            });
 
         } else if (holder.getItemViewType() == LOAD_ERROR) {
             holder.setOnClickListener(R.id.akita_ui_recycleview_footer, new View.OnClickListener() {
@@ -188,14 +180,6 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
                 }
             });
         } else if (holder.getItemViewType() == LOAD_MORE_EMPTY) {
-            holder.setOnClickListener(R.id.akita_ui_recycleview_footer, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (iOnFootClickListener != null) {
-                        iOnFootClickListener.onClickFoot();
-                    }
-                }
-            });
 
         }else {
             convert(holder, data.get(position), position);

@@ -57,6 +57,9 @@ public class Poper {
         popStrategy.dimiss();
     }
 
+    /**
+     * 初始化弹框策略
+     */
     private void initStrategy(){
         if(popOrientation==PopOrientation.FROM_TOP){
             popStrategy=new TopPopStrategy(anchorView,popView);
@@ -70,6 +73,10 @@ public class Poper {
         setKeyBackCancelable(true);
     }
 
+    /**
+     * 监听按返回键
+     * @param isCancelable
+     */
     private void setKeyBackCancelable(boolean isCancelable) {
         popView.setFocusable(isCancelable);
         popView.setFocusableInTouchMode(isCancelable);

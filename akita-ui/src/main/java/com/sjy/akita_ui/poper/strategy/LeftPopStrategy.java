@@ -55,26 +55,33 @@ public class LeftPopStrategy extends PopStrategy {
             }
         });
         parentView.addView(popView,new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        parentView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected void addViewToContent() {
         RelativeLayout.LayoutParams childparams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         calculateParams(childparams);
-        parentView.setVisibility(View.INVISIBLE);
         ((Activity) popView.getContext()).addContentView(parentView,childparams);
     }
 
     @Override
     protected void showAnim() {
-        initChildView();
+        if(isAnim||isOpen)return;
+        addViewToContent();
         AnimationUtil.slideInFromLeft(popView.getContext(),popView);
         popView.getAnimation().setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 popView.setVisibility(View.VISIBLE);
                 parentView.setVisibility(View.VISIBLE);
+                isAnim=true;
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
+                isAnim=false;
+                isOpen=true;
             }
 
             @Override
@@ -87,17 +94,20 @@ public class LeftPopStrategy extends PopStrategy {
 
     @Override
     protected void closeAnim() {
+        if(!isOpen||isAnim)return;
         AnimationUtil.slideOutToLeft(popView.getContext(),popView);
         popView.getAnimation().setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                isAnim=true;
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 parentView.setVisibility(View.GONE);
                 ((ViewGroup)parentView.getParent()).removeView(parentView);//移除控件
+                isAnim=false;
+                isOpen=false;
             }
 
             @Override

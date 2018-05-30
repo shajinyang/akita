@@ -17,6 +17,10 @@ import com.sjy.akita_ui.poper.Poper;
  */
 
 public class PopDelegate extends AkitaDelegate<DelegatePopBinding> {
+    Poper poper1;
+    Poper poper2;
+    Poper poper3;
+    Poper poper4;
     @Override
     protected Object setLayout() {
         return R.layout.delegate_pop;
@@ -30,13 +34,15 @@ public class PopDelegate extends AkitaDelegate<DelegatePopBinding> {
             public void onClick(View v) {
                 View view= LayoutInflater.from(_mActivity)
                         .inflate(R.layout.pop_item,null);
-                Poper.builder()
-                        .setAnchorView(v)
-                        .setIsTouchOutCancelable(false)
-                        .setOrientation(PopOrientation.FROM_TOP)
-                        .setPopView(view)
-                        .build()
-                        .show();
+                if(poper1==null){
+                    poper1=Poper.builder()
+                            .setAnchorView(v)
+                            .setIsTouchOutCancelable(false)
+                            .setOrientation(PopOrientation.FROM_TOP)
+                            .setPopView(view)
+                            .build();
+                }
+                poper1.show();
 
             }
         });
@@ -46,13 +52,15 @@ public class PopDelegate extends AkitaDelegate<DelegatePopBinding> {
             public void onClick(View v) {
                 View view= LayoutInflater.from(_mActivity)
                         .inflate(R.layout.pop_item,null);
-                Poper.builder()
-                        .setAnchorView(v)
-                        .setIsTouchOutCancelable(false)
-                        .setOrientation(PopOrientation.FROM_LEFT)
-                        .setPopView(view)
-                        .build()
-                        .show();
+                if(poper2==null){
+                    poper2=Poper.builder()
+                            .setAnchorView(v)
+                            .setIsTouchOutCancelable(false)
+                            .setOrientation(PopOrientation.FROM_LEFT)
+                            .setPopView(view)
+                            .build();
+                }
+                poper2.show();
             }
         });
 
@@ -61,12 +69,14 @@ public class PopDelegate extends AkitaDelegate<DelegatePopBinding> {
             public void onClick(View v) {
                 View view= LayoutInflater.from(_mActivity)
                         .inflate(R.layout.pop_item,null);
-                Poper.builder()
-                        .setIsTouchOutCancelable(false)
-                        .setOrientation(PopOrientation.FROM_BOTTOM)
-                        .setPopView(view)
-                        .build()
-                        .show();
+                if(poper3==null){
+                    poper3= Poper.builder()
+                            .setIsTouchOutCancelable(false)
+                            .setOrientation(PopOrientation.FROM_BOTTOM)
+                            .setPopView(view)
+                            .build();
+                }
+               poper3.show();
             }
         });
 
@@ -75,13 +85,15 @@ public class PopDelegate extends AkitaDelegate<DelegatePopBinding> {
             public void onClick(View v) {
                 View view= LayoutInflater.from(_mActivity)
                         .inflate(R.layout.pop_item,null);
-                Poper.builder()
-                        .setAnchorView(v)
-                        .setIsTouchOutCancelable(false)
-                        .setOrientation(PopOrientation.FROM_RIGHT)
-                        .setPopView(view)
-                        .build()
-                        .show();
+                if(poper4==null){
+                    poper4=Poper.builder()
+                            .setAnchorView(v)
+                            .setIsTouchOutCancelable(false)
+                            .setOrientation(PopOrientation.FROM_RIGHT)
+                            .setPopView(view)
+                            .build();
+                }
+                poper4.show();
             }
         });
     }

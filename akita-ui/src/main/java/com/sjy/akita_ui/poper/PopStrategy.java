@@ -15,9 +15,13 @@ public abstract class PopStrategy {
      protected View anchorView;
      protected View popView;
 
+     protected boolean isOpen=false;
+     protected boolean isAnim=false;
+
     public PopStrategy( View anchorView, View popView) {
         this.anchorView = anchorView;
         this.popView = popView;
+        initChildView();
     }
 
     public RelativeLayout getParentView() {
@@ -35,6 +39,11 @@ public abstract class PopStrategy {
      * 初始化子view
      */
     protected abstract void initChildView();
+
+    /**
+     * 添加view
+     */
+    protected abstract void addViewToContent();
 
     /**
      * 弹框打开动画
