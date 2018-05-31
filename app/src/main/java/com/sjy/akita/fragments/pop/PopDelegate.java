@@ -1,4 +1,4 @@
-package com.sjy.akita.fragments;
+package com.sjy.akita.fragments.pop;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

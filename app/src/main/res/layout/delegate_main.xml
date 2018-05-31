@@ -13,47 +13,70 @@
         app:title="单Activity布局"
         android:background="@color/colorPrimary"
         app:titleTextColor="#fff"/>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <Button
         android:id="@+id/tv_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:padding="8dp"
         android:text="普通跳转"/>
     <Button
         android:id="@+id/tv_btn2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:padding="8dp"
         android:text="可侧滑返回"/>
     <Button
         android:id="@+id/tv_btn3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:padding="8dp"
         android:text="城市选择"/>
     <Button
         android:id="@+id/tv_btn4"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:padding="8dp"
         android:text="列表"/>
     <Button
         android:id="@+id/tv_btn5"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:padding="8dp"
         android:text="复合列表"/>
     <Button
         android:id="@+id/tv_btn6"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
         android:padding="8dp"
         android:text="弹框"/>
+    <Button
+        android:id="@+id/tv_btn7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:padding="8dp"
+        android:text="TBS_X5_webview"/>
+        <Button
+            android:id="@+id/tv_btn8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:padding="8dp"
+            android:text="原生webview"/>
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
 </layout>

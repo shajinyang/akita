@@ -2,19 +2,20 @@ package com.sjy.akita.fragments;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.sjy.akita.IndexActivity;
 import com.sjy.akita.R;
 import com.sjy.akita.databinding.DelegateMainBinding;
+import com.sjy.akita.fragments.list.MultiRecycleviewDelegate;
+import com.sjy.akita.fragments.list.RecycleviewDelegate;
+import com.sjy.akita.fragments.pop.PopDelegate;
+import com.sjy.akita.fragments.webview.WebViewDelegate;
+import com.sjy.akita.fragments.webview.X5WebViewActivity;
 import com.sjy.akita_core.delegate.AkitaDelegate;
-import com.sjy.akita_core.log.AkitaLog;
 import com.sjy.akita_ui.alertpicker.AlertPicker;
 import com.sjy.akita_ui.alertpicker.PickerType;
 import com.sjy.akita_ui.alertpicker.callback.IOnSelect;
@@ -89,7 +90,21 @@ public class MainDelegate extends AkitaDelegate<DelegateMainBinding> {
             }
         });
 
-        Intent intent = new Intent();
+        v.tvBtn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(_mActivity,X5WebViewActivity.class));
+            }
+        });
+        v.tvBtn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start(new WebViewDelegate());
+            }
+        });
+
+
+        /*Intent intent = new Intent();
         intent.setAction("hehe");
         pendingIntent = PendingIntent.getBroadcast(_mActivity, 0, intent, 0);
         alarmManager= (AlarmManager) _mActivity.getSystemService(Context.ALARM_SERVICE);
@@ -104,7 +119,7 @@ public class MainDelegate extends AkitaDelegate<DelegateMainBinding> {
         } else {
             AkitaLog.e("setRepeating广播发送");
             alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime, offset, pendingIntent);
-        }
+        }*/
     }
 
     private int calculateTime(){
