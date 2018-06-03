@@ -264,11 +264,15 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
                 getRecyclerView().post(new Runnable() {
                     @Override
                     public void run() {
-                        iOnLoadMoreListener.onLoadMore();
+                        if(iOnLoadMoreListener!=null) {
+                            iOnLoadMoreListener.onLoadMore();
+                        }
                     }
                 });
             } else {
-                iOnLoadMoreListener.onLoadMore();
+                if(iOnLoadMoreListener!=null) {
+                    iOnLoadMoreListener.onLoadMore();
+                }
             }
         }
     }

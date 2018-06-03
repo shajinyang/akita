@@ -40,33 +40,33 @@ public class RecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBindin
 
         adapter.setList(list);
         adapter.bindToRecycleview(v.recycleview);
-        adapter.isFullPage(v.recycleview, new ICheckFullPage() {
-            @Override
-            public void checkFullPage(boolean result) {
-                if(result){
-                    adapter.showLoadMore();
-                }
-            }
-        });
-        adapter.setIOnFootClickListener(new IOnFootClickListener() {
-            @Override
-            public void onClickFoot() {
-                Toast.makeText(_mActivity,"点击底部",Toast.LENGTH_SHORT).show();
-            }
-        });
-        adapter.setIOnLoadMoreListener(new IOnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                v.recycleview.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadData();
-                        adapter.setList(list);
-                        adapter.showLoadEmpty();
-                    }
-                },1000);
-            }
-        });
+//        adapter.isFullPage(v.recycleview, new ICheckFullPage() {
+//            @Override
+//            public void checkFullPage(boolean result) {
+//                if(result){
+//                    adapter.showLoadMore();
+//                }
+//            }
+//        });
+//        adapter.setIOnFootClickListener(new IOnFootClickListener() {
+//            @Override
+//            public void onClickFoot() {
+//                Toast.makeText(_mActivity,"点击底部",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        adapter.setIOnLoadMoreListener(new IOnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+//                v.recycleview.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        loadData();
+//                        adapter.setList(list);
+//                        adapter.showLoadEmpty();
+//                    }
+//                },1000);
+//            }
+//        });
 
     }
 

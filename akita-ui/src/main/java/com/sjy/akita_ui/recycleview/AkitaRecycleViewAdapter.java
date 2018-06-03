@@ -272,11 +272,15 @@ public abstract class AkitaRecycleViewAdapter<T> extends Adapter<BaseViewHolder>
                 getRecyclerView().post(new Runnable() {
                     @Override
                     public void run() {
-                        iOnLoadMoreListener.onLoadMore();
+                        if(iOnLoadMoreListener!=null) {
+                            iOnLoadMoreListener.onLoadMore();
+                        }
                     }
                 });
             } else {
-                iOnLoadMoreListener.onLoadMore();
+                if(iOnLoadMoreListener!=null) {
+                    iOnLoadMoreListener.onLoadMore();
+                }
             }
         }
     }
