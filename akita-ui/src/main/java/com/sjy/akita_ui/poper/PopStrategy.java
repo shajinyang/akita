@@ -2,6 +2,7 @@ package com.sjy.akita_ui.poper;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -33,7 +34,7 @@ public abstract class PopStrategy {
     /**
      * 弹框位置计算
      */
-    protected abstract void calculateParams(RelativeLayout.LayoutParams params);
+    protected abstract void calculateParams(FrameLayout.LayoutParams params);
 
     /**
      * 初始化子view

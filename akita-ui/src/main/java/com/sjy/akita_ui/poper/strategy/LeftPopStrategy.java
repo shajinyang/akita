@@ -5,6 +5,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.sjy.akita_common.utils.ScreenUtils;
@@ -25,7 +26,7 @@ public class LeftPopStrategy extends PopStrategy {
     }
 
     @Override
-    protected void calculateParams(RelativeLayout.LayoutParams params) {
+    protected void calculateParams(FrameLayout.LayoutParams params) {
         if(anchorView==null){
             return;
         }
@@ -60,7 +61,7 @@ public class LeftPopStrategy extends PopStrategy {
 
     @Override
     protected void addViewToContent() {
-        RelativeLayout.LayoutParams childparams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams childparams=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         calculateParams(childparams);
         ((Activity) popView.getContext()).addContentView(parentView,childparams);
     }
