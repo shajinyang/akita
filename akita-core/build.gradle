@@ -40,12 +40,6 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$android_test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$android_test_espresso"
 
-    //Android Architecture components组件
-    api "android.arch.lifecycle:runtime:$lifecycle"
-    api "android.arch.lifecycle:extensions:$lifecycle"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle"
-    api "android.arch.persistence.room:runtime:$room"
-    annotationProcessor "android.arch.persistence.room:compiler:$room"
 
     // fragment库
     compile "me.yokeyword:fragmentation:$fragment_version"
