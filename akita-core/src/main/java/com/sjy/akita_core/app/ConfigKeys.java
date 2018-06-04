@@ -12,5 +12,6 @@ public enum ConfigKeys {
 
     INTERCEPT,//okhttp拦截器
 
-    CONFIG_READY//配置tag
+    CONFIG_READY,//配置tag
+
 }

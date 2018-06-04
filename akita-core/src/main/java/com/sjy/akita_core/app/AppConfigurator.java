@@ -1,5 +1,7 @@
 package com.sjy.akita_core.app;
 
+import com.sjy.akita_core.Akita;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,13 +37,14 @@ public final class AppConfigurator {
         return this;
     }
 
+
     public final AppConfigurator withInterceptor(Interceptor interceptor){
         INTERCEPTORS.add(interceptor);
         AKITA_CONFIGS.put(ConfigKeys.INTERCEPT,INTERCEPTORS);
         return this;
     }
 
-    public final void config(){
+    public final void  config(){
         AKITA_CONFIGS.put(ConfigKeys.CONFIG_READY, true);
     }
 

@@ -16,9 +16,9 @@ import com.tencent.smtt.sdk.QbSdk;
 
 public final class Akita {
 
+
     public static AppConfigurator init(Application application){
         initLogger();
-        initLeakCanary(application);
         initX5WebView(application);
         return AppConfigurator.getInstance();
     }
@@ -32,23 +32,25 @@ public final class Akita {
     }
 
     /**
-     * 初始化日志打印
-     */
-    private static void initLogger(){
-        Logger.addLogAdapter(new AndroidLogAdapter());
-    }
-
-    /**
-     * 初始化内存泄露监测
+     * 内存泄露监测
      * @param application
      */
-    private static void initLeakCanary(Application application){
+    public static void openLeakCanary(Application application){
         if (LeakCanary.isInAnalyzerProcess(application)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
             return;
         }
         LeakCanary.install(application);
+    }
+
+
+
+    /**
+     * 初始化日志打印
+     */
+    private static void initLogger(){
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     /**
