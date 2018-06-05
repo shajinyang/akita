@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.sjy.akita.IndexActivity;
@@ -19,6 +20,7 @@ import com.sjy.akita_core.delegate.AkitaDelegate;
 import com.sjy.akita_ui.alertpicker.AlertPicker;
 import com.sjy.akita_ui.alertpicker.PickerType;
 import com.sjy.akita_ui.alertpicker.callback.IOnSelect;
+import com.sjy.akita_ui.toaster.AkitaToast;
 
 import java.util.Calendar;
 
@@ -120,6 +122,7 @@ public class MainDelegate extends AkitaDelegate<DelegateMainBinding> {
             AkitaLog.e("setRepeating广播发送");
             alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime, offset, pendingIntent);
         }*/
+        AkitaToast.showCustomToast(LayoutInflater.from(_mActivity).inflate(R.layout.toast_view,null));
     }
 
     private int calculateTime(){

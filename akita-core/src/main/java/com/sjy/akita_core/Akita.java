@@ -6,6 +6,7 @@ import android.util.Log;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.sjy.akita_core.app.AppConfigurator;
+import com.sjy.akita_ui.application.AkitaUiContext;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.smtt.sdk.QbSdk;
 
@@ -20,6 +21,7 @@ public final class Akita {
     public static AppConfigurator init(Application application){
         initLogger();
         initX5WebView(application);
+        initAkitaUi(application);
         return AppConfigurator.getInstance();
     }
 
@@ -44,7 +46,13 @@ public final class Akita {
         LeakCanary.install(application);
     }
 
-
+    /**
+     * 初始化akit ui的配置
+     * @param application
+     */
+    private static void initAkitaUi(Application application){
+        AkitaUiContext.init(application);
+    }
 
     /**
      * 初始化日志打印

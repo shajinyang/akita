@@ -40,7 +40,6 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$android_test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$android_test_espresso"
 
-
     // fragment库
     compile "me.yokeyword:fragmentation:$fragment_version"
     compile "me.yokeyword:fragmentation-swipeback:$fragment_version"
@@ -69,6 +68,8 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:$glideVersion") {
         exclude group: "com.android.support"
     }
+
     //腾讯浏览webview内核
     api files('libs/tbs_sdk_thirdapp_v3.6.0.1234_43608_sharewithdownload_withoutGame_obfs_20180510_111111.jar')
+    implementation project(':akita-ui')
 }
