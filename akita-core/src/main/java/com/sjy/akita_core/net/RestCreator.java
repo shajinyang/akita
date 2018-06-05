@@ -39,11 +39,18 @@ public final class RestCreator {
         private static final int TIME_OUT=60;
         private static final OkHttpClient.Builder BUILDER=new OkHttpClient.Builder();
         private static final HashSet<Interceptor> INTERCEPTORS=Akita.getConfigs(ConfigKeys.INTERCEPT);
+        private static final HashSet<Interceptor> NETWORK_INTERCEPTORS=Akita.getConfigs(ConfigKeys.NETWORK_INTERCEPT);
         private static OkHttpClient.Builder addInterceptor(){
-            if(INTERCEPTORS!=null&&!INTERCEPTORS.isEmpty())
-            for (Interceptor in:INTERCEPTORS
-                 ) {
-                BUILDER.addInterceptor(in);
+            if(INTERCEPTORS!=null&&!INTERCEPTORS.isEmpty()) {
+                for (Interceptor in : INTERCEPTORS
+                        ) {
+                    BUILDER.addInterceptor(in);
+                }
+            }
+            if(NETWORK_INTERCEPTORS!=null&&!NETWORK_INTERCEPTORS.isEmpty()){
+                for (Interceptor interceptor:NETWORK_INTERCEPTORS){
+                    BUILDER.addNetworkInterceptor(interceptor);
+                }
             }
 
             return BUILDER;

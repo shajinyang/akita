@@ -18,6 +18,7 @@ public final class AppConfigurator {
 
     private static final HashMap<Object,Object> AKITA_CONFIGS=new HashMap<>();
     private static final HashSet<Interceptor> INTERCEPTORS=new HashSet<>();
+    private static final HashSet<Interceptor> NETWORK_INTERCEPTORS=new HashSet<>();
 
     private AppConfigurator() {
         AKITA_CONFIGS.put(ConfigKeys.CONFIG_READY,false);
@@ -41,6 +42,12 @@ public final class AppConfigurator {
     public final AppConfigurator withInterceptor(Interceptor interceptor){
         INTERCEPTORS.add(interceptor);
         AKITA_CONFIGS.put(ConfigKeys.INTERCEPT,INTERCEPTORS);
+        return this;
+    }
+
+    public final AppConfigurator withNetWorkInterceptor(Interceptor interceptor){
+        NETWORK_INTERCEPTORS.add(interceptor);
+        AKITA_CONFIGS.put(ConfigKeys.NETWORK_INTERCEPT,INTERCEPTORS);
         return this;
     }
 
