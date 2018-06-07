@@ -7,6 +7,7 @@ import com.sjy.akita_core.net.callback.IStart;
 import com.sjy.akita_core.net.callback.ISuccess;
 
 import java.io.File;
+import java.util.List;
 import java.util.WeakHashMap;
 
 import io.reactivex.Observer;
@@ -31,14 +32,14 @@ public final class RestClient {
     private final IStart ISTART;
     private final IEnd IEND;
     private final Class<?> CONVERT_BEAN;
-
+    private final Class<?> CONVERT_LIST_BEAN;
 
     public RestClient(WeakHashMap<String,Object> PARAMS,
                       String URL,
                       File file,
                       ISuccess ISUCCESS,
                       IError IERROR,
-                      IStart ISTART,IEnd IEND,Class<?> CONVERT_BEAN) {
+                      IStart ISTART,IEnd IEND,Class<?> CONVERT_BEAN,Class<?> CONVERT_LIST_BEAN) {
         RestClient.PARAMS.putAll(PARAMS);
         this.URL=URL;
         this.FILE =file;
@@ -47,6 +48,7 @@ public final class RestClient {
         this.ISTART=ISTART;
         this.IEND=IEND;
         this.CONVERT_BEAN=CONVERT_BEAN;
+        this.CONVERT_LIST_BEAN=CONVERT_LIST_BEAN;
     }
 
     public static RestClientBuilder builder(){
@@ -70,7 +72,11 @@ public final class RestClient {
                     @Override
                     public void onNext(String s) {
                         if(ISUCCESS!=null){
-                           ISUCCESS.onSuccess(JSON.parseObject(s,CONVERT_BEAN));
+                            if(CONVERT_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseObject(s,CONVERT_BEAN));
+                            }else if(CONVERT_LIST_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseArray(s,CONVERT_LIST_BEAN));
+                            }
                         }
                     }
 
@@ -107,7 +113,11 @@ public final class RestClient {
                     @Override
                     public void onNext(String s) {
                         if(ISUCCESS!=null){
-                            ISUCCESS.onSuccess(JSON.parseObject(s,CONVERT_BEAN));
+                            if(CONVERT_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseObject(s,CONVERT_BEAN));
+                            }else if(CONVERT_LIST_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseArray(s,CONVERT_LIST_BEAN));
+                            }
                         }
                     }
 
@@ -148,7 +158,11 @@ public final class RestClient {
                     @Override
                     public void onNext(String s) {
                         if(ISUCCESS!=null){
-                            ISUCCESS.onSuccess(JSON.parseObject(s,CONVERT_BEAN));
+                            if(CONVERT_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseObject(s,CONVERT_BEAN));
+                            }else if(CONVERT_LIST_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseArray(s,CONVERT_LIST_BEAN));
+                            }
                         }
                     }
 

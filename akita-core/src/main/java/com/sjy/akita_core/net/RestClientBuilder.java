@@ -6,6 +6,7 @@ import com.sjy.akita_core.net.callback.IStart;
 import com.sjy.akita_core.net.callback.ISuccess;
 
 import java.io.File;
+import java.util.List;
 import java.util.WeakHashMap;
 
 /**
@@ -22,6 +23,7 @@ public class RestClientBuilder {
     private IStart ISTART=null;
     private IEnd IEND=null;
     private  Class<?> CONVERT_BEAN=null;
+    private  Class<?> CONVERT_LIST_BEAN=null;
 
 
     public RestClientBuilder params(String key,Object value){
@@ -66,9 +68,13 @@ public class RestClientBuilder {
         this.CONVERT_BEAN=CONVERT_BEAN;
         return this;
     }
+    public RestClientBuilder convertList(Class<?> CONVERT_LIST_BEAN){
+        this.CONVERT_LIST_BEAN=CONVERT_LIST_BEAN;
+        return this;
+    }
 
     public RestClient build(){
-        return new RestClient(PARAMS,URL,file,ISUCCESS,IERROR,ISTART,IEND,CONVERT_BEAN);
+        return new RestClient(PARAMS,URL,file,ISUCCESS,IERROR,ISTART,IEND,CONVERT_BEAN,CONVERT_LIST_BEAN);
     }
 
 }
