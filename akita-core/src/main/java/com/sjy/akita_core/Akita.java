@@ -6,6 +6,7 @@ import android.util.Log;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.sjy.akita_core.app.AppConfigurator;
+import com.sjy.akita_core.db.SharedPrefrenceHelper;
 import com.sjy.akita_ui.application.AkitaUiContext;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.smtt.sdk.QbSdk;
@@ -20,6 +21,7 @@ public final class Akita {
 
     public static AppConfigurator init(Application application){
         initLogger();
+        initSp(application);
         initX5WebView(application);
         initAkitaUi(application);
         return AppConfigurator.getInstance();
@@ -59,6 +61,14 @@ public final class Akita {
      */
     private static void initLogger(){
         Logger.addLogAdapter(new AndroidLogAdapter());
+    }
+
+    /**
+     * 初始化sp轻量存储
+     * @param application
+     */
+    private static void initSp(Application application){
+        SharedPrefrenceHelper.init(application,application.getPackageName());
     }
 
     /**
