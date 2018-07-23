@@ -1,6 +1,7 @@
 package com.sjy.akita_core.net;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.sjy.akita_core.net.callback.IEnd;
 import com.sjy.akita_core.net.callback.IError;
 import com.sjy.akita_core.net.callback.IStart;
@@ -26,7 +27,7 @@ import okhttp3.RequestBody;
 public final class RestClient {
 
     private static final WeakHashMap<String,Object> PARAMS=RestCreator.getParams();
-    private final String JSONPARAMS;
+    private final Object JSONPARAMS;
     private final String URL;
     private final File FILE;
     private final ISuccess ISUCCESS;
@@ -37,7 +38,7 @@ public final class RestClient {
     private final Class<?> CONVERT_LIST_BEAN;
 
     public RestClient(WeakHashMap<String,Object> PARAMS,
-                      String JSONPARAMS,
+                      Object JSONPARAMS,
                       String URL,
                       File file,
                       ISuccess ISUCCESS,
@@ -142,11 +143,12 @@ public final class RestClient {
     }
 
     public void postJson(){
-        if(JSONPARAMS==null||JSONPARAMS.isEmpty())return;
+        if(JSONPARAMS==null)return;
         if(ISTART!=null){
             ISTART.onStart();
         }
-        RequestBody body=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),JSONPARAMS);
+        String val= JSON.toJSONString(JSONPARAMS);
+        RequestBody body=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),val);
         RestCreator.getRestService()
                 .postRaw(URL,body)
                 .subscribeOn(Schedulers.io())
