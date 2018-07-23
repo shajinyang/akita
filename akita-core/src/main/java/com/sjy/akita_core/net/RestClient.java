@@ -16,6 +16,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 
 /**
@@ -25,6 +26,7 @@ import okhttp3.RequestBody;
 public final class RestClient {
 
     private static final WeakHashMap<String,Object> PARAMS=RestCreator.getParams();
+    private final String JSONPARAMS;
     private final String URL;
     private final File FILE;
     private final ISuccess ISUCCESS;
@@ -35,12 +37,14 @@ public final class RestClient {
     private final Class<?> CONVERT_LIST_BEAN;
 
     public RestClient(WeakHashMap<String,Object> PARAMS,
+                      String JSONPARAMS,
                       String URL,
                       File file,
                       ISuccess ISUCCESS,
                       IError IERROR,
                       IStart ISTART,IEnd IEND,Class<?> CONVERT_BEAN,Class<?> CONVERT_LIST_BEAN) {
         RestClient.PARAMS.putAll(PARAMS);
+        this.JSONPARAMS=JSONPARAMS;
         this.URL=URL;
         this.FILE =file;
         this.ISUCCESS=ISUCCESS;
@@ -102,6 +106,49 @@ public final class RestClient {
         }
         RestCreator.getRestService()
                 .post(URL,PARAMS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        if(ISUCCESS!=null){
+                            if(CONVERT_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseObject(s,CONVERT_BEAN));
+                            }else if(CONVERT_LIST_BEAN!=null){
+                                ISUCCESS.onSuccess(JSON.parseArray(s,CONVERT_LIST_BEAN));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if(IERROR!=null){
+                            IERROR.onError(e.getMessage()+"");
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if(IEND!=null){
+                            IEND.onEnd();
+                        }
+                    }
+                });
+    }
+
+    public void postJson(){
+        if(JSONPARAMS==null||JSONPARAMS.isEmpty())return;
+        if(ISTART!=null){
+            ISTART.onStart();
+        }
+        RequestBody body=RequestBody.create(MediaType.parse("application/json; charset=utf-8"),JSONPARAMS);
+        RestCreator.getRestService()
+                .postRaw(URL,body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {

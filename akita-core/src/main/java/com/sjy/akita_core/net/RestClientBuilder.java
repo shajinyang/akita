@@ -16,6 +16,7 @@ import java.util.WeakHashMap;
 public class RestClientBuilder {
 
     private  final WeakHashMap<String,Object> PARAMS=RestCreator.getParams();
+    private String JSONPARAMS="";
     private  String URL="";
     private  File file=null;
     private  ISuccess ISUCCESS=null;
@@ -28,6 +29,10 @@ public class RestClientBuilder {
 
     public RestClientBuilder params(String key,Object value){
         PARAMS.put(key,value);
+        return this;
+    }
+    public RestClientBuilder jsonParams(String pams){
+        JSONPARAMS=pams;
         return this;
     }
 
@@ -74,7 +79,7 @@ public class RestClientBuilder {
     }
 
     public RestClient build(){
-        return new RestClient(PARAMS,URL,file,ISUCCESS,IERROR,ISTART,IEND,CONVERT_BEAN,CONVERT_LIST_BEAN);
+        return new RestClient(PARAMS,JSONPARAMS,URL,file,ISUCCESS,IERROR,ISTART,IEND,CONVERT_BEAN,CONVERT_LIST_BEAN);
     }
 
 }
