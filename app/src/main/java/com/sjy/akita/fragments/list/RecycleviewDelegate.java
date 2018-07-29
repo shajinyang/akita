@@ -43,6 +43,7 @@ public class RecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBindin
         adapter=new MyAdapter(_mActivity,R.layout.recycleview_item);
         v.recycleview.setLayoutManager(new GridLayoutManager(_mActivity,2));
         adapter.bindToRecycleview(v.recycleview);
+        adapter.isShowFoot(false);
     }
 
 

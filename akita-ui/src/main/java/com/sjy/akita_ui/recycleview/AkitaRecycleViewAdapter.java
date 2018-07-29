@@ -55,6 +55,7 @@ public abstract class AkitaRecycleViewAdapter<T> extends Adapter<BaseViewHolder>
     }
 
     private boolean tagFullScreen =false;//数据是否能够填满一屏
+    private boolean tagShowFoot=true;//是否显示foot
 
     /**
      * 绑定recycleview
@@ -70,6 +71,15 @@ public abstract class AkitaRecycleViewAdapter<T> extends Adapter<BaseViewHolder>
     }
 
     /**
+     * 是否显示foot
+     * @param isShow
+     */
+    public void isShowFoot(boolean isShow){
+      tagShowFoot=isShow;
+    }
+
+
+    /**
      * 设置数据源
      * @param mData
      */
@@ -83,22 +93,26 @@ public abstract class AkitaRecycleViewAdapter<T> extends Adapter<BaseViewHolder>
         }
         //data不为null 默认为加载视图
         else {
-            showLoadMore();//先显示加载视图并刷新数据
-            //判断刷新后的数据是否满一屏，再决定是否显示其他foot
-            isFullPage(recyclerView, new ICheckFullPage() {
-                @Override
-                public void checkFullPage(boolean result) {
-                    tagFullScreen=result;
-                    //不满一屏，切换为无更多数据布局
-                    if(!result){
-                        showLoadEmpty();
+            if(tagShowFoot) {
+                showLoadMore();//先显示加载视图并刷新数据
+                //判断刷新后的数据是否满一屏，再决定是否显示其他foot
+                isFullPage(recyclerView, new ICheckFullPage() {
+                    @Override
+                    public void checkFullPage(boolean result) {
+                        tagFullScreen = result;
+                        //不满一屏，切换为无更多数据布局
+                        if (!result) {
+                            showLoadEmpty();
+                        }
+                        //否则为加载布局
+                        else {
+                            showLoadMore();
+                        }
                     }
-                    //否则为加载布局
-                    else {
-                       showLoadMore();
-                    }
-                }
-            });
+                });
+            }else {
+                notifyDataSetChanged();
+            }
 
         }
 

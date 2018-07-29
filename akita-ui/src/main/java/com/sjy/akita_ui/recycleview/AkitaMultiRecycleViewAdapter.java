@@ -42,9 +42,12 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
     //记载样式（CONTENT_VIEW，普通加载；LOAD_MORE_VIEW,加载更多；LOAD_MORE_EMPTY，没有更多数据；LOAD_ERROR，加载数据失败）
     private int loadType = CONTENT_VIEW;
     private RecyclerView recyclerView;
-    private boolean tagFullScreen =false;//数据是否能够填满一屏
 
     protected MultiItemTypeSupport<T> mMultiItemTypeSupport;
+
+
+    private boolean tagFullScreen =false;//数据是否能够填满一屏
+    private boolean tagShowFoot=true;//是否显示foot
 
     public AkitaMultiRecycleViewAdapter(Context context, MultiItemTypeSupport<T> multiItemTypeSupport) {
         mContext = context;
@@ -75,6 +78,14 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
     }
 
     /**
+     * 是否显示foot
+     * @param isShow
+     */
+    public void isShowFoot(boolean isShow){
+        tagShowFoot=isShow;
+    }
+
+    /**
      * 设置数据源
      *
      * @param mData
@@ -89,22 +100,26 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
         }
         //data不为null 默认为加载视图
         else {
-            showLoadMore();//先显示加载视图并刷新数据
-            //判断刷新后的数据是否满一屏，再决定是否显示其他foot
-            isFullPage(recyclerView, new ICheckFullPage() {
-                @Override
-                public void checkFullPage(boolean result) {
-                    tagFullScreen=result;
-                    //不满一屏，切换为无更多数据布局
-                    if(!result){
-                        showLoadEmpty();
+            if(tagShowFoot) {
+                showLoadMore();//先显示加载视图并刷新数据
+                //判断刷新后的数据是否满一屏，再决定是否显示其他foot
+                isFullPage(recyclerView, new ICheckFullPage() {
+                    @Override
+                    public void checkFullPage(boolean result) {
+                        tagFullScreen = result;
+                        //不满一屏，切换为无更多数据布局
+                        if (!result) {
+                            showLoadEmpty();
+                        }
+                        //否则为加载布局
+                        else {
+                            showLoadMore();
+                        }
                     }
-                    //否则为加载布局
-                    else {
-                        showLoadMore();
-                    }
-                }
-            });
+                });
+            }else {
+                notifyDataSetChanged();
+            }
 
         }
     }
