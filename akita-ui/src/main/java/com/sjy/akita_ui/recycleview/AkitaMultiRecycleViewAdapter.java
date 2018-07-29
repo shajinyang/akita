@@ -31,8 +31,10 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
     int mLoadMoreId = R.layout.akita_recycleview_item_footer_more;//加载更多布局
     int mLoadErrorId = R.layout.akita_recycleview_item_footer_error;//加载错误布局
     int mLoadEmptyId = R.layout.akita_recycleview_item_footer_empty;//加载空数据布局
+    int mContentEmptyId=R.layout.akita_recycleview_item_content_empty;//内容空数据布局
     protected List<T> data;
     LayoutInflater mInflater;
+    private final static int CONTENT_EMPTY_VIEW=104;//内容空数据布局
     private final static int CONTENT_VIEW = 100;//内容布局
     private final static int LOAD_MORE_VIEW = 101;//加载更多
     private final static int LOAD_MORE_EMPTY = 102;//没有更多数据了
@@ -40,6 +42,7 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
     //记载样式（CONTENT_VIEW，普通加载；LOAD_MORE_VIEW,加载更多；LOAD_MORE_EMPTY，没有更多数据；LOAD_ERROR，加载数据失败）
     private int loadType = CONTENT_VIEW;
     private RecyclerView recyclerView;
+    private boolean tagFullScreen =false;//数据是否能够填满一屏
 
     protected MultiItemTypeSupport<T> mMultiItemTypeSupport;
 
@@ -77,8 +80,33 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
      * @param mData
      */
     public void setList(List<T> mData) {
-        this.data = mData;
-        notifyDataSetChanged();
+        tagFullScreen=false;
+        this.data =mData;
+        //data为null 或者空时为空布局视图
+        if(mData==null||mData.size()==0){
+            loadType=CONTENT_EMPTY_VIEW;
+            notifyDataSetChanged();
+        }
+        //data不为null 默认为加载视图
+        else {
+            showLoadMore();//先显示加载视图并刷新数据
+            //判断刷新后的数据是否满一屏，再决定是否显示其他foot
+            isFullPage(recyclerView, new ICheckFullPage() {
+                @Override
+                public void checkFullPage(boolean result) {
+                    tagFullScreen=result;
+                    //不满一屏，切换为无更多数据布局
+                    if(!result){
+                        showLoadEmpty();
+                    }
+                    //否则为加载布局
+                    else {
+                        showLoadMore();
+                    }
+                }
+            });
+
+        }
     }
 
     /**
@@ -107,6 +135,13 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
     public void setLoadEmptyView(int viewId) {
         mLoadEmptyId = viewId;
     }
+    /**
+     * 设置空内容布局view
+     * @param viewId
+     */
+    public void setContentEmptyView(int viewId){
+        mContentEmptyId=viewId;
+    }
 
     /**
      * 设置底部点击回调
@@ -126,42 +161,30 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
     /**
      * 显示加载更多
      */
-    public void showLoadMore() {
-        loadType = LOAD_MORE_VIEW;
-        if (data != null) {
-            if (getItemCount() == data.size()) {
-                notifyItemInserted(data.size() - 1);
-            } else {
-                notifyItemChanged(data.size());
-            }
+    public void showLoadMore(){
+        loadType=LOAD_MORE_VIEW;
+        if(data!=null&&data.size()>0){
+            notifyDataSetChanged();
         }
     }
 
     /**
      * 显示加载错误
      */
-    public void showLoadError() {
-        loadType = LOAD_ERROR;
-        if (data != null) {
-            if (getItemCount() == data.size()) {
-                notifyItemInserted(data.size() - 1);
-            } else {
-                notifyItemChanged(data.size());
-            }
+    public void showLoadError(){
+        loadType=LOAD_ERROR;
+        if(data!=null){
+            notifyDataSetChanged();
         }
     }
 
     /**
      * 显示没有更多数据
      */
-    public void showLoadEmpty() {
-        loadType = LOAD_MORE_EMPTY;
-        if (data != null) {
-            if (getItemCount() == data.size()) {
-                notifyItemInserted(data.size() - 1);
-            } else {
-                notifyItemChanged(data.size());
-            }
+    public void showLoadEmpty(){
+        loadType=LOAD_MORE_EMPTY;
+        if(data!=null){
+            notifyDataSetChanged();
         }
     }
 
@@ -181,6 +204,8 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
             });
         } else if (holder.getItemViewType() == LOAD_MORE_EMPTY) {
 
+        }else if (holder.getItemViewType() == CONTENT_EMPTY_VIEW) {
+
         }else {
             convert(holder, data.get(position), position);
         }
@@ -195,7 +220,11 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
             return data.size() + 1;
         } else if (loadType == LOAD_MORE_EMPTY) {
             return data.size() + 1;
-        } else {
+        }
+        //list为空数据时，直接返回空布局个数
+        else if(loadType==CONTENT_EMPTY_VIEW){
+            return 1;
+        }else {
             return data.size();
         }
     }
@@ -220,7 +249,11 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
             } else {
                 return LOAD_MORE_EMPTY;
             }
-        } else {
+        }
+        else if(loadType==CONTENT_EMPTY_VIEW){
+            return CONTENT_EMPTY_VIEW;
+        }
+        else {
             return mMultiItemTypeSupport.getItemViewType(position, data.get(position));
         }
 
@@ -239,7 +272,10 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
         } else if (viewType == LOAD_MORE_EMPTY) {
             BaseViewHolder viewHolder = BaseViewHolder.get(mContext, parent, mLoadEmptyId);
             return viewHolder;
-        } else {
+        } else if(viewType==CONTENT_EMPTY_VIEW){
+            BaseViewHolder viewHolder = BaseViewHolder.get(mContext, parent, mContentEmptyId);
+            return viewHolder;
+        }else {
             int layoutId = mMultiItemTypeSupport.getLayoutId(viewType);
             BaseViewHolder viewHolder = BaseViewHolder.get(mContext, parent, layoutId);
             return viewHolder;
@@ -258,8 +294,9 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
         if (position < data.size() - 1) {
             return;
         }
-        //自动加载更多条件（1，滑动最后。2，当前foot为正在加载更多 ）
-        if (loadType == LOAD_MORE_VIEW && position == data.size() - 1) {
+        //自动加载更多条件（1，滑动最后。2，当前foot为正在加载更多。3，当前数据必须超过一屏（即可滑动状态） ）
+        int viewType=getItemViewType(position);
+        if(viewType==LOAD_MORE_VIEW&&position==data.size()&& tagFullScreen) {
             if (getRecyclerView() != null) {
                 getRecyclerView().post(new Runnable() {
                     @Override
@@ -291,9 +328,11 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
                     public int getSpanSize(int i) {
                         //有底部布局
                         if (loadType != CONTENT_VIEW) {
-                            if (data != null && data.size() > 0 && i == data.size()) {
+                            if(data!=null&&data.size()>0&&i==data.size()) {
                                 return spanCount;
-                            } else {
+                            }else if(data==null||data.size()==0) {
+                                return spanCount;
+                            }else {
                                 return 1;
                             }
                         } else {
@@ -318,7 +357,7 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
      * @param recyclerView your recyclerView
      * @see #setList(List)
      */
-    public void isFullPage(RecyclerView recyclerView, final ICheckFullPage iCheckFullPage) {
+    private void isFullPage(RecyclerView recyclerView, final ICheckFullPage iCheckFullPage) {
         if (iCheckFullPage == null) {
             return;
         }
@@ -338,6 +377,8 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
                 public void run() {
                     if (isFullScreen(linearLayoutManager)) {
                         iCheckFullPage.checkFullPage(true);
+                    }else {
+                        iCheckFullPage.checkFullPage(false);
                     }
                 }
             }, 50);
@@ -351,6 +392,8 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
                     int pos = getTheBiggestNumber(positions) + 1;
                     if (pos != getItemCount()) {
                         iCheckFullPage.checkFullPage(true);
+                    }else {
+                        iCheckFullPage.checkFullPage(false);
                     }
                 }
             }, 50);

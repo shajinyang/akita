@@ -32,48 +32,57 @@ public class RecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBindin
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        for (int i=0;i<26;i++){
-            list.add("第"+i+"项");
-        }
-        adapter=new MyAdapter(_mActivity,R.layout.recycleview_item);
-        v.recycleview.setLayoutManager(new GridLayoutManager(_mActivity,2));
+        initView();
+        bindRecycleviewData();
 
-        adapter.setList(list);
-        adapter.bindToRecycleview(v.recycleview);
-//        adapter.isFullPage(v.recycleview, new ICheckFullPage() {
-//            @Override
-//            public void checkFullPage(boolean result) {
-//                if(result){
-//                    adapter.showLoadMore();
-//                }
-//            }
-//        });
-//        adapter.setIOnFootClickListener(new IOnFootClickListener() {
-//            @Override
-//            public void onClickFoot() {
-//                Toast.makeText(_mActivity,"点击底部",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        adapter.setIOnLoadMoreListener(new IOnLoadMoreListener() {
-//            @Override
-//            public void onLoadMore() {
-//                v.recycleview.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        loadData();
-//                        adapter.setList(list);
-//                        adapter.showLoadEmpty();
-//                    }
-//                },1000);
-//            }
-//        });
 
     }
 
+
+    private void initView(){
+        adapter=new MyAdapter(_mActivity,R.layout.recycleview_item);
+        v.recycleview.setLayoutManager(new GridLayoutManager(_mActivity,2));
+        adapter.bindToRecycleview(v.recycleview);
+    }
+
+
+    private void bindRecycleviewData(){
+        for (int i=0;i<24;i++){
+            list.add("第"+i+"项");
+        }
+        adapter.setList(list);
+        adapter.setIOnFootClickListener(new IOnFootClickListener() {
+            @Override
+            public void onClickFoot() {
+                Toast.makeText(_mActivity,"点击底部",Toast.LENGTH_SHORT).show();
+            }
+        });
+        adapter.setIOnLoadMoreListener(new IOnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                v.recycleview.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadData();
+                        adapter.setList(list);
+                    }
+                },1000);
+            }
+        });
+    }
+
+    //加载更多数据
     private void loadData(){
         for (int i=0;i<10;i++){
             list.add("新数据"+i);
         }
+    }
 
+    //重新加载数据
+    private void loadNewData(){
+        list=new ArrayList<>();
+        for (int i=0;i<10;i++){
+            list.add("重新加载的新数据"+i);
+        }
     }
 }

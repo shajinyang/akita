@@ -25,6 +25,8 @@ import java.util.List;
 public class MultiRecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBinding> {
     private List<String> list=new ArrayList<>();
     private MyAdapter2 adapter;
+
+    int  count=0;
     @Override
     protected Object setLayout() {
         return R.layout.delegate_recycleview;
@@ -33,9 +35,13 @@ public class MultiRecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewB
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        for (int i=0;i<47;i++){
-            list.add("第"+i+"项");
-        }
+        initView();
+        bindData();
+
+    }
+
+    private void initView(){
+        v.recycleview.setLayoutManager(new GridLayoutManager(_mActivity,3));
         adapter= new MyAdapter2(_mActivity, new MultiItemTypeSupport<String>() {
             @Override
             public int getLayoutId(int itemType) {
@@ -55,17 +61,14 @@ public class MultiRecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewB
 
             }
         });
-        v.recycleview.setLayoutManager(new GridLayoutManager(_mActivity,3));
-        adapter.setList(list);
         adapter.bindToRecycleview(v.recycleview);
-        adapter.isFullPage(v.recycleview, new ICheckFullPage() {
-            @Override
-            public void checkFullPage(boolean result) {
-                if(result){
-                    adapter.showLoadMore();
-                }
-            }
-        });
+    }
+
+    private void bindData(){
+        for (int i=0;i<60;i++){
+            list.add("第"+i+"项");
+        }
+        adapter.setList(list);
         adapter.setIOnFootClickListener(new IOnFootClickListener() {
             @Override
             public void onClickFoot() {
@@ -79,19 +82,22 @@ public class MultiRecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewB
                     @Override
                     public void run() {
                         loadData();
-                        adapter.setList(list);
-                        adapter.showLoadEmpty();
+                        if(count==2){
+                            adapter.showLoadEmpty();
+                        }else {
+                            adapter.setList(list);
+                        }
+
                     }
                 },1000);
             }
         });
-
     }
 
     private void loadData(){
+        count++;
         for (int i=0;i<10;i++){
             list.add("新数据"+i);
         }
-
     }
 }
