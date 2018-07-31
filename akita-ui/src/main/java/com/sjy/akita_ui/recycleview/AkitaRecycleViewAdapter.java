@@ -290,6 +290,7 @@ public abstract class AkitaRecycleViewAdapter<T> extends Adapter<BaseViewHolder>
 
     @Override
     public int getItemCount() {
+        if(data!=null) {
             if (loadType == LOAD_MORE_VIEW) {
                 return data.size() + 1;
             } else if (loadType == LOAD_ERROR) {
@@ -298,12 +299,14 @@ public abstract class AkitaRecycleViewAdapter<T> extends Adapter<BaseViewHolder>
                 return data.size() + 1;
             }
             //list为空数据时，直接返回空布局个数
-            else if(loadType==CONTENT_EMPTY_VIEW){
+            else if (loadType == CONTENT_EMPTY_VIEW) {
                 return 1;
-            }
-            else {
+            } else {
                 return data.size();
             }
+        }else {
+            return 0;
+        }
     }
 
 

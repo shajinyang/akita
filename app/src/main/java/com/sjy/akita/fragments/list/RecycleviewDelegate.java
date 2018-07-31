@@ -43,15 +43,6 @@ public class RecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBindin
         adapter=new MyAdapter(_mActivity,R.layout.recycleview_item);
         v.recycleview.setLayoutManager(new GridLayoutManager(_mActivity,2));
         adapter.bindToRecycleview(v.recycleview);
-        adapter.isShowFoot(false);
-    }
-
-
-    private void bindRecycleviewData(){
-        for (int i=0;i<24;i++){
-            list.add("第"+i+"项");
-        }
-        adapter.setList(list);
         adapter.setIOnFootClickListener(new IOnFootClickListener() {
             @Override
             public void onClickFoot() {
@@ -70,6 +61,21 @@ public class RecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBindin
                 },1000);
             }
         });
+    }
+
+
+    private void bindRecycleviewData(){
+        v.recycleview.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                for (int i=0;i<24;i++){
+//                    list.add("第"+i+"项");
+//                }
+                adapter.setList(list);
+            }
+        },1000);
+
+
     }
 
     //加载更多数据

@@ -229,18 +229,22 @@ public abstract class AkitaMultiRecycleViewAdapter<T> extends RecyclerView.Adapt
 
     @Override
     public int getItemCount() {
-        if (loadType == LOAD_MORE_VIEW) {
-            return data.size() + 1;
-        } else if (loadType == LOAD_ERROR) {
-            return data.size() + 1;
-        } else if (loadType == LOAD_MORE_EMPTY) {
-            return data.size() + 1;
-        }
-        //list为空数据时，直接返回空布局个数
-        else if(loadType==CONTENT_EMPTY_VIEW){
-            return 1;
+        if(data!=null) {
+            if (loadType == LOAD_MORE_VIEW) {
+                return data.size() + 1;
+            } else if (loadType == LOAD_ERROR) {
+                return data.size() + 1;
+            } else if (loadType == LOAD_MORE_EMPTY) {
+                return data.size() + 1;
+            }
+            //list为空数据时，直接返回空布局个数
+            else if (loadType == CONTENT_EMPTY_VIEW) {
+                return 1;
+            } else {
+                return data.size();
+            }
         }else {
-            return data.size();
+            return 0;
         }
     }
 
