@@ -17,6 +17,7 @@ public class RestClientBuilder {
 
     private  final WeakHashMap<String,Object> PARAMS=RestCreator.getParams();
     private Object JSONPARAMS=null;
+    private Object OBJECTPARAM=null;
     private  String URL="";
     private  File file=null;
     private  ISuccess ISUCCESS=null;
@@ -33,6 +34,11 @@ public class RestClientBuilder {
     }
     public RestClientBuilder jsonParams(Object pams){
         JSONPARAMS=pams;
+        return this;
+    }
+
+    public RestClientBuilder objParam(Object param){
+        OBJECTPARAM=param;
         return this;
     }
 
@@ -79,7 +85,7 @@ public class RestClientBuilder {
     }
 
     public RestClient build(){
-        return new RestClient(PARAMS,JSONPARAMS,URL,file,ISUCCESS,IERROR,ISTART,IEND,CONVERT_BEAN,CONVERT_LIST_BEAN);
+        return new RestClient(PARAMS,JSONPARAMS,OBJECTPARAM,URL,file,ISUCCESS,IERROR,ISTART,IEND,CONVERT_BEAN,CONVERT_LIST_BEAN);
     }
 
 }

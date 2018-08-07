@@ -68,9 +68,9 @@ public class RecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBindin
         v.recycleview.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                for (int i=0;i<24;i++){
-//                    list.add("第"+i+"项");
-//                }
+                for (int i=0;i<0;i++){
+                    list.add("第"+i+"项");
+                }
                 adapter.setList(list);
             }
         },1000);

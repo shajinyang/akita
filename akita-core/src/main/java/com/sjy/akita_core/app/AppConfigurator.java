@@ -47,7 +47,7 @@ public final class AppConfigurator {
 
     public final AppConfigurator withNetWorkInterceptor(Interceptor interceptor){
         NETWORK_INTERCEPTORS.add(interceptor);
-        AKITA_CONFIGS.put(ConfigKeys.NETWORK_INTERCEPT,INTERCEPTORS);
+        AKITA_CONFIGS.put(ConfigKeys.NETWORK_INTERCEPT,NETWORK_INTERCEPTORS);
         return this;
     }
 
