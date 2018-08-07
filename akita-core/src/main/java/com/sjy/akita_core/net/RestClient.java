@@ -196,7 +196,7 @@ public final class RestClient {
             ISTART.onStart();
         }
         RestCreator.getRestService()
-                .post(URL, (WeakHashMap<String, Object>) ReflectUtil.getFiledsInfo(OBJECTPARAM))
+                .post(URL,ReflectUtil.getFiledsInfo(OBJECTPARAM))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<String>() {

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 /**
  * Created by sjy on 2018/8/7.
@@ -15,9 +16,9 @@ public class ReflectUtil {
      * @param o
      * @return
      */
-    public static Map<String,Object> getFiledsInfo(Object o){
+    public static WeakHashMap<String,Object> getFiledsInfo(Object o){
         Field[] fields=o.getClass().getDeclaredFields();
-        Map infoMap=new HashMap();
+        WeakHashMap infoMap=new WeakHashMap();
         for(int i=0;i<fields.length;i++){
             infoMap.put(fields[i].getName(), getFieldValueByName(fields[i].getName(),o));
         }
