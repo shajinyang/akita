@@ -23,6 +23,7 @@ public class DetailDelegate extends AkitaDelegate<DelegateDetailBinding> {
         super.onLazyInitView(savedInstanceState);
     }
 
+
     public static DetailDelegate create(){
         return new DetailDelegate();
     }

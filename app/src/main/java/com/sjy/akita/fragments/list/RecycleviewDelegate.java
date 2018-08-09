@@ -10,9 +10,11 @@ import com.sjy.akita.R;
 import com.sjy.akita.adapters.MyAdapter;
 import com.sjy.akita.databinding.DelegateRecycleviewBinding;
 import com.sjy.akita_core.delegate.AkitaDelegate;
+import com.sjy.akita_core.log.AkitaLog;
 import com.sjy.akita_ui.recycleview.callback.ICheckFullPage;
 import com.sjy.akita_ui.recycleview.callback.IOnFootClickListener;
 import com.sjy.akita_ui.recycleview.callback.IOnLoadMoreListener;
+import com.sjy.akita_ui.toaster.AkitaToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +36,14 @@ public class RecycleviewDelegate extends AkitaDelegate<DelegateRecycleviewBindin
         super.onLazyInitView(savedInstanceState);
         initView();
         bindRecycleviewData();
-
+        AkitaLog.e("懒加载"+v.recycleview.toString());
 
     }
-
+    @Override
+    protected void defaultInit() {
+        super.defaultInit();
+        AkitaLog.e("调用了初始化"+v.recycleview.toString());
+    }
 
     private void initView(){
         adapter=new MyAdapter(_mActivity,R.layout.recycleview_item);

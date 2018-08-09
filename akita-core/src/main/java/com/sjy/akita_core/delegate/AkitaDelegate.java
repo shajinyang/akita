@@ -9,4 +9,8 @@ import android.databinding.ViewDataBinding;
 
 public abstract class AkitaDelegate<T extends ViewDataBinding> extends BaseDelegate<T>{
 
+    @Override
+    protected void defaultInit() {
+
+    }
 }

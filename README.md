@@ -16,7 +16,7 @@
 第二步：在module的gradle里配置
 
      dependencies {
-         implementation 'com.github.shajinyang:akita:1.1.7'
+         implementation 'com.github.shajinyang:akita:1.2.0'
      }
 
 

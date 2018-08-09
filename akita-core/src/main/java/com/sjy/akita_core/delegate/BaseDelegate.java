@@ -29,6 +29,9 @@ public abstract class BaseDelegate<T extends ViewDataBinding> extends Fragment i
     protected FragmentActivity _mActivity =null;
     protected abstract Object setLayout();
 
+    //默认加载(初始化后调用)
+    protected abstract void defaultInit();
+
     private final SupportFragmentDelegate mDelegate=new SupportFragmentDelegate(this);
 
 
@@ -107,6 +110,7 @@ public abstract class BaseDelegate<T extends ViewDataBinding> extends Fragment i
         }else {
             throw  new ClassCastException("setLayout() must return Integer or View");
         }
+        defaultInit();
         return v.getRoot();
 
     }
